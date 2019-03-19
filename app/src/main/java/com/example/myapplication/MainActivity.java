@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +36,10 @@ public class MainActivity extends AppCompatActivity {
     Button button2;
     private track tracks;
     private GitHubService GitHubService;
+    EditText singer;
+    EditText music;
+
+
 
 
     @Override
@@ -52,6 +57,9 @@ public class MainActivity extends AppCompatActivity {
         Button button2 = (Button) findViewById(R.id.button2);
         Button button3 = (Button) findViewById(R.id.button3);
         Button button4 = (Button) findViewById(R.id.button4);
+        singer = findViewById(R.id.singer);
+        music = findViewById(R.id.music);
+
 
         final Adapter mAdapter = new Adapter();
         mAdapter.setOnClickListener(new View.OnClickListener() {
@@ -116,11 +124,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 GitHubService gitHubService = GitHubService.retrofit.create(GitHubService.class);
-                track cancion = new track("Gato", "Gatos...");
-                String title = "lololo";
-                String singer = "laalalla";
-
-
+                String title = music.getText().toString();
+                String cantante = singer.getText().toString();
+                track cancion = new track(title, cantante);
                 Call<track> call = gitHubService.createTrack(cancion);
                 call.enqueue(new Callback<track>() {
                     @Override
